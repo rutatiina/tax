@@ -15,7 +15,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Rutatiina\\Tax\\": "src/"
+            "Rutatiina\\Tax\\": "src/",
+            "rutatiina/tenant": "*",
+            "rutatiina/financial-accounting": "*"
         }
     },
     "extra": {
