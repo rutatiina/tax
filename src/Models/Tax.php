@@ -22,6 +22,14 @@ class Tax extends Model
 
     protected $primaryKey = 'id';
 
+    protected $hidden = [
+        'created_at',
+        'created_by',
+        'deleted_at',
+        'updated_at',
+        'updated_by',
+    ];
+
     /**
      * The "booting" method of the model.
      *
