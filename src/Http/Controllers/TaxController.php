@@ -3,14 +3,11 @@
 namespace Rutatiina\Tax\Http\Controllers;
 
 use Illuminate\Support\Facades\Request as FacadesRequest;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Rutatiina\FinancialAccounting\Models\Account;
 use Rutatiina\Tax\Models\Tax;
-use Rutatiina\Classes\Currencies  as ClassesCurrencies;
-use Rutatiina\Classes\Countries  as ClassesCountries;
 use Rutatiina\Item\Traits\ItemsVueSearchSelect;
 
 class TaxController extends Controller
@@ -51,8 +48,6 @@ class TaxController extends Controller
             'pageAction' => 'Create', #required
             'urlPost' => '/taxes', #required
             'attributes' => $attributes, #required
-            'currencies' => ClassesCurrencies::en_IN(),
-            'countries' => ClassesCountries::ungrouped(),
             'taxes' => Tax::all(),
             'accounts' => Account::all(),
         ];
@@ -125,8 +120,6 @@ class TaxController extends Controller
             'urlPost' => '/taxes/'.$id, #required
             'attributes' => $attributes, #required
             'accounts' => Account::all(),
-            'currencies' => ClassesCurrencies::en_IN(),
-            'countries' => ClassesCountries::ungrouped(),
             'taxes' => Tax::all(),
         ];
 
