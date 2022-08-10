@@ -5,6 +5,7 @@ namespace Rutatiina\Tax\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Rutatiina\Tenant\Scopes\TenantIdScope;
+use Illuminate\Support\Facades\Schema;
 
 class Tax extends Model
 {
@@ -84,6 +85,11 @@ class Tax extends Model
     public function on_bill_account()
     {
         return $this->hasOne('Rutatiina\FinancialAccounting\Models\Account', 'code', 'on_bill_financial_account_code');
+    }
+
+    public function getSearchableColumns()
+    {
+        return Schema::connection('tenant')->getColumnListing($this->table);
     }
 
 }

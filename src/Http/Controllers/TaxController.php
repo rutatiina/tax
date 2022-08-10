@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Rutatiina\FinancialAccounting\Models\Account;
 use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Item\Traits\ItemsVueSearchSelect;
+use Illuminate\Support\Str;
 
 class TaxController extends Controller
 {
@@ -26,8 +27,24 @@ class TaxController extends Controller
 
         $per_page = ($request->per_page) ? $request->per_page : 20;
 
+        $query = Tax::query();
+
+        if ($request->search)
+        {
+            $query->where(function($q) use ($request) {
+                $columns = (new Tax)->getSearchableColumns();
+                foreach($columns as $column)
+                {
+                    $q->orWhere($column, 'like', '%'.Str::replace(' ', '%', $request->search).'%');
+                }
+            });
+        }
+
+        $query->with(['on_sale_account', 'on_bill_account']);
+        $taxes = $query->paginate(15);
+
         return [
-            'tableData' => Tax::with(['on_sale_account', 'on_bill_account'])->paginate($per_page)
+            'tableData' => $taxes
         ];
 
 	}
