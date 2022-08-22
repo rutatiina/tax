@@ -10,13 +10,19 @@ use Rutatiina\FinancialAccounting\Models\Account;
 use Rutatiina\Tax\Models\Tax;
 use Rutatiina\Item\Traits\ItemsVueSearchSelect;
 use Illuminate\Support\Str;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class TaxController extends Controller
 {
     use ItemsVueSearchSelect; //calls AccountingTrait
 
     public function __construct()
-    {}
+    {
+        $this->middleware('permission:taxes.view');
+        $this->middleware('permission:taxes.create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:taxes.update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:taxes.delete', ['only' => ['destroy']]);
+    }
 
     public function index(Request $request)
 	{
