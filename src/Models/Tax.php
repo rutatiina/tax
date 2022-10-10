@@ -2,13 +2,15 @@
 
 namespace Rutatiina\Tax\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Rutatiina\Tenant\Scopes\TenantIdScope;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
+use Rutatiina\Tenant\Scopes\TenantIdScope;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tax extends Model
 {
+    use SoftDeletes;
     use LogsActivity;
 
     protected static $logName = 'Tax';
